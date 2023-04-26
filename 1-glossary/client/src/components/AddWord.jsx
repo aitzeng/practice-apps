@@ -4,22 +4,31 @@ const { useState, useEffect } = React;
 
 const AddWord = ({submitAdd}) => {
 
-  const [newWord, setNewWord] = useState('');
-  const [newDef, setNewDef] = useState('');
+  const [newWord, setNewWord] = useState("");
+  const [newDef, setNewDef] = useState("");
 
   const submitWord = (e) => {
     e.preventDefault();
-    submitAdd(newWord, newDef)
+    let info = { word: newWord, definition: newDef };
+    submitAdd(info)
     setNewWord('');
     setNewDef('');
   }
 
+  const typeWord = (e) => {
+    setNewWord(e.target.value);
+  }
+
+  const typeDef = (e) => {
+    setNewDef(e.target.value)
+  }
+
   return (
 
-    <form>
-      <input type="text" onChange={setNewWord} placeholder="Word"/>
-      <input type="text" onChange={setNewDef} placeholder="Definition"/>
-      <input type="submit" value="Add Word" onSubmit={}/>
+    <form onSubmit={submitWord}>
+      <input type="text" onChange={typeWord} placeholder="Word" value={newWord}/>
+      <input type="text" onChange={typeDef} placeholder="Definition" value={newDef}/>
+      <input type="submit" value="Add Word" />
     </form>
 
   )
