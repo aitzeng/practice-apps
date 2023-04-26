@@ -1,7 +1,7 @@
-let router = require('express').Router()
+// let router = require('express').Router()
 
-router.post('/word', (req, res) => {
+// router.post('/word', (req, res) => {
 
-})
+// })
 
-module.exports = router;
+// module.exports = router;
