@@ -1,19 +1,30 @@
 import React from "react";
 import AddWord from './AddWord.jsx';
+import axios from 'axios';
+
+const { useState, useEffect } = React;
 
 const App = () => {
 
-  let server = 'http://localhost:3000/glossary/word'
+  const [wordList, setWordList] = useState('');
 
-  const submitAdd = function(word, definition) {
-    let data = {word: definition};
-    axios.post(server, data)
+  let server = '/glossary'
+
+  const submitAdd = function(info) {
+    axios.post(server, info)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   return (
 
     <div>
       <AddWord submitAdd={submitAdd} />
+      <WordEntry/>
     </div>
   )
 }
