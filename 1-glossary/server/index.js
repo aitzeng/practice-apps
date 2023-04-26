@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const { save } = require('./db.js');
+const { save, grabDictionary } = require('./db.js');
 
 // const router = require('./routes.js');
 
@@ -24,6 +24,16 @@ app.post('/glossary', (req, res) => {
     res.send(500, 'Error storing')
   })
 
+})
+
+app.get('/glossary', (req, res) => {
+  grabDictionary()
+  .then((result) => {
+    res.send(result)
+  })
+  .catch((error) => {
+    res.send(500, 'Could Not Grab')
+  })
 })
 
 /****
