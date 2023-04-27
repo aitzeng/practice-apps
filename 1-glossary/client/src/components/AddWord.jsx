@@ -28,7 +28,7 @@ const AddWord = ({submitAdd}) => {
     <form onSubmit={submitWord}>
       <input type="text" onChange={typeWord} placeholder="Word" value={newWord}/>
       <input type="text" onChange={typeDef} placeholder="Definition" value={newDef}/>
-      <input type="submit" value="Add Word" />
+      <input type="submit" value="Add Word" disabled={!newWord}/>
     </form>
 
   )
