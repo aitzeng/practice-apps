@@ -33,6 +33,28 @@ const App = () => {
     })
   }
 
+  const update = (info) => {
+    axios.put(server, info)
+    .then((result) => {
+      console.log('Updated From:', result.data)
+      grab();
+    })
+    .catch((error) => {
+      console.log('Unable to update')
+    })
+  }
+
+  const deleter = (info) => {
+    axios.delete(`/glossary/${info}`)
+    .then((result) => {
+      console.log('# of documents deleted:', result.data)
+      grab();
+    })
+    .catch((error) => {
+      console.log('Unable to delete')
+    })
+  }
+
   return (
 
     <div>
@@ -44,7 +66,7 @@ const App = () => {
           <td>DEFINITION</td>
         </tr>
       </thead>
-        <WordList items={modList}/>
+        <WordList items={modList} update={update} deleter={deleter}/>
       </table>
     </div>
   )
