@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const { save, grabDictionary } = require('./db.js');
+const { save, grabDictionary, updateDictionary, deleteDictionary } = require('./db.js');
 
 // const router = require('./routes.js');
 
@@ -33,6 +33,26 @@ app.get('/glossary', (req, res) => {
   })
   .catch((error) => {
     res.send(500, 'Could Not Grab')
+  })
+})
+
+app.put('/glossary', (req, res) => {
+  updateDictionary(req.body)
+  .then((result) => {
+    res.send(result)
+  })
+  .catch((error) => {
+    res.send(500, 'Unable to Update')
+  })
+})
+
+app.delete('/glossary/:id', (req, res) => {
+  deleteDictionary(req.params.id)
+  .then((result) => {
+    res.send(result)
+  })
+  .catch((error) => {
+    res.send(500, 'Error Deleting')
   })
 })
 
