@@ -2,6 +2,7 @@ import React from "react";
 import AddWord from './AddWord.jsx';
 import axios from 'axios';
 import WordList from './WordList.jsx';
+import Search from './Search.jsx';
 
 const { useState, useEffect } = React;
 
@@ -9,12 +10,19 @@ const App = () => {
 
   const [wordList, setWordList] = useState([]);
   const [modList, setModList] = useState(wordList);
+  const [filtList, setFiltList] = useState(modList);
 
   let server = '/glossary';
-
+  // console.log('Hello');
   useEffect(() => {
     grab()
   }, [])
+
+  // How does changing setFiltList(filtered) to blank, maintain the current state? I understand this is needed so when modList pulls from wordList, filtList pulls from modList. I understand that modList is never changed. I don't understand how modList gets triggered so setFiltList(modList) is invoked
+  useEffect(() => {
+    // console.log('Rerun of useEffect')
+    setFiltList(modList)
+  }, [modList])
 
   const submitAdd = function(info) {
     axios.post(server, info)
@@ -47,7 +55,7 @@ const App = () => {
   const deleter = (info) => {
     axios.delete(`/glossary/${info}`)
     .then((result) => {
-      console.log('# of documents deleted:', result.data)
+      // console.log('# of documents deleted:', result.data)
       grab();
     })
     .catch((error) => {
@@ -55,10 +63,19 @@ const App = () => {
     })
   }
 
+  const filtering = (value) => {
+    let filtered = modList.filter((item) => {
+      // console.log('this is modList:', modList)
+      return item.word.toLowerCase().includes(value)
+    })
+    setFiltList(filtered);
+    // setModList(['Staffew']);
+  }
+
   return (
 
     <div>
-      <AddWord submitAdd={submitAdd} />
+      <AddWord submitAdd={submitAdd} /> <Search filtering={filtering}/>
       <table>
         <thead>
         <tr>
@@ -66,7 +83,7 @@ const App = () => {
           <td>DEFINITION</td>
         </tr>
       </thead>
-        <WordList items={modList} update={update} deleter={deleter}/>
+        <WordList items={filtList} update={update} deleter={deleter}/>
       </table>
     </div>
   )
