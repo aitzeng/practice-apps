@@ -4,7 +4,7 @@ import App from "./components/App.jsx";
 
 render(
   <div>
-    <p>Hello, World!</p>
+    <p>Glossary</p>
     <App/>
   </div>,
   document.getElementById("root")
