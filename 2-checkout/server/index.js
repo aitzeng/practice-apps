@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const router = require('./routes.js');
 const path = require("path");
 const sessionHandler = require("./middleware/session-handler");
 const logger = require("./middleware/logger");
@@ -22,11 +23,13 @@ app.use(express.json());
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.post('/checkout', (req, res) => {
-  res.send('Request Received')
-  console.log('This is req.body:', req.body)
-  console.log('This is req.session_id:', req.session_id)
-})
+app.use('/checkout', router);
+
+// app.post('/checkout', (req, res) => {
+//   res.send('Request Received')
+//   console.log('This is req.body:', req.body)
+//   console.log('This is req.session_id:', req.session_id)
+// })
 /****
  *
  *
