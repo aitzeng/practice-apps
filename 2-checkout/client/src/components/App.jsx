@@ -15,25 +15,25 @@ const App = () => {
     setCurrentForm(currentForm + 1)
   }
 
-  // let submitValue;
-  // if (currentForm === 0) {
-  //   submitValue = 'Checkout'
-  //   setCheck(false)
-  // } else {
-  //   setCheck(true)
-  // }
+  if (currentForm === 0) {
+    return (
 
-  return (
-
-
-    <div>
+      <div>
       <form onSubmit={beginCheckOut}>
         {currentForm === 0 ? <input type="submit" value="Checkout" disabled={false}/> : <input type="submit" value="Checkout" disabled={true}/>}
       </form>
       <FormList currentForm = {currentForm} setCurrentForm={setCurrentForm}/>
     </div>
 
-  )
+    )
+  } else {
+    return (
+
+    <div>
+      <FormList currentForm = {currentForm} setCurrentForm={setCurrentForm}/>
+    </div>
+    )
+  }
 }
 
 export default App;
