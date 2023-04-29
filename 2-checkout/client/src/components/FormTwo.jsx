@@ -35,15 +35,29 @@ const FormTwo = ({setCurrentForm, userInfo, setUserInfo}) => {
     setPhone(e.target.value);
   }
 
+  const locationSubmitter = (e) => {
+    e.preventDefault(e);
+    setUserInfo({...userInfo, address1: address1, address2: address2, city: city, state: terr, zipCode: zip, phone: phone})
+    setAddress1('')
+    setAddress2('')
+    setCity('')
+    setTerr('')
+    setZip('')
+    setPhone('')
+    setCurrentForm(3);
+  }
+
   return (
 
-    <form>
+    <form onSubmit={locationSubmitter}>
+      <input type="submit" value="Next"/>
       <input type="text" placeholder="Address 1" onChange={addressOneChanger}/>
       <input type="text" placeholder="Address 2"onChange={addressTwoChanger}/>
       <input type="text" placeholder="City" onChange={cityChanger}/>
       <input type="text" placeholder="State"onChange={terrChanger}/>
       <input type="text" placeholder="Zip Code" onChange={zipChanger}/>
       <input type="text" placeholder="Phone Number"onChange={phoneChanger}/>
+
     </form>
 
   )
